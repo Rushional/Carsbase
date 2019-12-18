@@ -14,10 +14,14 @@ public class Main {
 
     static {
         try {
+            System.out.println("Started");
             Configuration configuration = new Configuration();
+            System.out.println("Created a configuration");
             configuration.configure();
 
+            System.out.println("configured");
             ourSessionFactory = configuration.buildSessionFactory();
+            System.out.println("built a session factory");
         } catch (Throwable ex) {
             throw new ExceptionInInitializerError(ex);
         }
@@ -27,7 +31,7 @@ public class Main {
         return ourSessionFactory.openSession();
     }
 
-    public static void main(final String[] args) throws Exception {
+    public static void main(final String[] args) {
         final Session session = getSession();
         try {
             System.out.println("querying all the managed entities...");

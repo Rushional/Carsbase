@@ -4,16 +4,19 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
+<!--        I know it's a bad idea, but I have no time to find better ways for setting a dialect without spring-->
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
         <property name="connection.url">jdbc:postgresql://localhost:5432/Carsbase</property>
         <property name="connection.driver_class">org.postgresql.Driver</property>
+        <property name="connection.username">postgres</property>
+        <property name="connection.password">cabbage</property>
         <mapping class="database.CarEntity"/>
         <mapping class="database.ClientEntity"/>
         <mapping class="database.ProblemEntity"/>
         <mapping class="database.WorkTypeEntity"/>
         <mapping class="database.WorkerEntity"/>
         <mapping class="database.WorkerWorkTypeEntity"/>
-        <!-- <property name="connection.username"/> -->
-        <!-- <property name="connection.password"/> -->
+
 
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
