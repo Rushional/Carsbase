@@ -16,6 +16,7 @@
         <mapping class="database.WorkTypeEntity"/>
         <mapping class="database.WorkerEntity"/>
         <mapping class="database.WorkerWorkTypeEntity"/>
+        <mapping class="query_results.WorkTypesQuery"/>
 
 
         <!-- DB schema will be updated if needed -->

@@ -5,9 +5,11 @@ import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import query_results.WorkTypesQuery;
 
 import javax.persistence.metamodel.EntityType;
 
+import java.util.List;
 import java.util.Map;
 
 public class Main {
@@ -48,40 +50,45 @@ public class Main {
 
             System.out.println();
             System.out.println("Executing task 1:");
-            final Query SQLQuery1workTypes = session.createSQLQuery("SELECT work_type_name, price FROM work_type");
-            System.out.println("executing: " + SQLQuery1workTypes.getQueryString());
-            for (Object o : SQLQuery1workTypes.list()) {
-                System.out.println("  " + o);
-            }
+            final Query query1workTypes = session.createSQLQuery("SELECT work_type_name, price FROM work_type").addEntity(WorkTypesQuery.class);
+            System.out.println("executing: " + query1workTypes.getQueryString());
+            List<WorkTypesQuery> workTypesList = query1workTypes.list();
+            //display the data
+            workTypesList.forEach(row->{
+                System.out.println("\t"+row.getWorkTypeName()+"\t"+row.getPrice());
+            });
+//            for (Object o : query1workTypes.list()) {
+//                System.out.println("  " + o);
+//            }
 
             System.out.println();
             System.out.println("Executing task 2:");
-            final Query SQLQuery2carsClients = session.createSQLQuery(
+            final Query query2carsClients = session.createSQLQuery(
                     "SELECT car_name, client_name " +
                     "FROM car INNER JOIN client " +
                     "ON fk_client_id=pk_client_id"
             );
-            System.out.println("executing: " + SQLQuery2carsClients.getQueryString());
-            for (Object o : SQLQuery2carsClients.list()) {
+            System.out.println("executing: " + query2carsClients.getQueryString());
+            for (Object o : query2carsClients.list()) {
                 System.out.println("  " + o);
             }
 
             System.out.println();
             System.out.println("Executing task 3:");
-            final Query SQLQuery3carWorks = session.createSQLQuery(
+            final Query query3carWorks = session.createSQLQuery(
                     "SELECT work_type_name\n" +
                     "FROM problem\n" +
                     "INNER JOIN work_type ON work_type_id=pk_work_type_id\n" +
                     "WHERE car_id=3;"
             );
-            System.out.println("executing: " + SQLQuery3carWorks.getQueryString());
-            for (Object o : SQLQuery3carWorks.list()) {
+            System.out.println("executing: " + query3carWorks.getQueryString());
+            for (Object o : query3carWorks.list()) {
                 System.out.println("  " + o);
             }
 
             System.out.println();
             System.out.println("Executing task 4:");
-            final Query SQLQuery4workerProblemsByDate = session.createSQLQuery(
+            final Query query4workerProblemsByDate = session.createSQLQuery(
                     "SELECT car_name, client_name, work_type_name, delivery_date\n" +
                     "FROM problem\n" +
                     "INNER JOIN car ON car_id=pk_car_id\n" +
@@ -89,14 +96,14 @@ public class Main {
                     "INNER JOIN work_type ON work_type_id=pk_work_type_id\n" +
                     "WHERE worker_id=1 AND delivery_date BETWEEN DATE '2019-12-12' AND DATE '2019-12-17'"
             );
-            System.out.println("executing: " + SQLQuery4workerProblemsByDate.getQueryString());
-            for (Object o : SQLQuery4workerProblemsByDate.list()) {
+            System.out.println("executing: " + query4workerProblemsByDate.getQueryString());
+            for (Object o : query4workerProblemsByDate.list()) {
                 System.out.println("  " + o);
             }
 
             System.out.println();
             System.out.println("Executing task 5:");
-            final Query SQLQuery5clientCost = session.createSQLQuery(
+            final Query query5clientCost = session.createSQLQuery(
                     "SELECT\n" +
                     "SUM (price) AS total_cost\n" +
                     "FROM client\n" +
@@ -105,8 +112,8 @@ public class Main {
                     "INNER JOIN work_type ON work_type_id=pk_work_type_id\n" +
                     "WHERE pk_client_id=1"
             );
-            System.out.println("executing: " + SQLQuery5clientCost.getQueryString());
-            for (Object o : SQLQuery5clientCost.list()) {
+            System.out.println("executing: " + query5clientCost.getQueryString());
+            for (Object o : query5clientCost.list()) {
                 System.out.println("  " + o);
             }
         } finally {
