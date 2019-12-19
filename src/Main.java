@@ -1,16 +1,10 @@
-import database.ClientEntity;
 import org.hibernate.HibernateException;
-import org.hibernate.Metamodel;
 import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-
 import javax.persistence.Tuple;
-import javax.persistence.metamodel.EntityType;
-
 import java.util.List;
-import java.util.Map;
 
 public class Main {
     private static final SessionFactory ourSessionFactory;
@@ -37,30 +31,12 @@ public class Main {
     public static void main(final String[] args) {
         final Session session = getSession();
         try {
-//            System.out.println("querying all the managed entities...");
-//            final Metamodel metamodel = session.getSessionFactory().getMetamodel();
-//            for (EntityType<?> entityType : metamodel.getEntities()) {
-//                final String entityName = entityType.getName();
-//                final Query query = session.createQuery("from " + entityName);
-//                System.out.println("executing: " + query.getQueryString());
-//                for (Object o : query.list()) {
-//                    System.out.println("  " + o);
-//                }
-//            }
-
             System.out.println();
             System.out.println("Executing task 1:");
-//            final Query query1workTypes = session.createSQLQuery("SELECT work_type_name, price FROM work_type").addEntity(WorkTypesQuery.class);
-//            System.out.println("executing: " + query1workTypes.getQueryString());
-//            List<WorkTypesQuery> workTypesList = query1workTypes.list();
-//            //display the data
-//            workTypesList.forEach(row->{
-//                System.out.println("\t"+row.getWorkTypeName()+"\t"+row.getPrice());
-//            });
-
             Query query1workTypes = session.createNativeQuery(
                     "SELECT work_type_name, price FROM work_type",
                     Tuple.class);
+            System.out.println("executing: " + query1workTypes.getQueryString());
             List<Tuple> query1workTypesResults = query1workTypes.getResultList();
             for (Tuple workTypesTuple : query1workTypesResults) {
                 System.out.print("Work type: " + workTypesTuple.get("work_type_name") + ", ");
@@ -69,58 +45,66 @@ public class Main {
 
             System.out.println();
             System.out.println("Executing task 2:");
-            final Query query2carsClients = session.createSQLQuery(
+            Query query2carsClients = session.createNativeQuery(
                     "SELECT car_name, client_name " +
                     "FROM car INNER JOIN client " +
-                    "ON fk_client_id=pk_client_id"
-            );
+                    "ON fk_client_id=pk_client_id",
+                    Tuple.class);
             System.out.println("executing: " + query2carsClients.getQueryString());
-            for (Object o : query2carsClients.list()) {
-                System.out.println("  " + o);
+            List<Tuple> query2carsClientsResults = query2carsClients.getResultList();
+            for (Tuple workTypesTuple : query2carsClientsResults) {
+                System.out.print("Car name: " + workTypesTuple.get("car_name") + ", ");
+                System.out.println("Client name: " + workTypesTuple.get("client_name"));
             }
 
             System.out.println();
             System.out.println("Executing task 3:");
-            final Query query3carWorks = session.createSQLQuery(
-                    "SELECT work_type_name\n" +
-                    "FROM problem\n" +
-                    "INNER JOIN work_type ON work_type_id=pk_work_type_id\n" +
-                    "WHERE car_id=3;"
-            );
+            Query query3carWorks = session.createNativeQuery(
+                    "SELECT work_type_name " +
+                    "FROM problem " +
+                    "INNER JOIN work_type ON work_type_id=pk_work_type_id " +
+                    "WHERE car_id=3;",
+                    Tuple.class);
             System.out.println("executing: " + query3carWorks.getQueryString());
-            for (Object o : query3carWorks.list()) {
-                System.out.println("  " + o);
+            List<Tuple> query3carWorksResults = query3carWorks.getResultList();
+            for (Tuple workTypesTuple : query3carWorksResults) {
+                System.out.println("Work type: " + workTypesTuple.get("work_type_name"));
             }
 
             System.out.println();
             System.out.println("Executing task 4:");
-            final Query query4workerProblemsByDate = session.createSQLQuery(
-                    "SELECT car_name, client_name, work_type_name, delivery_date\n" +
-                    "FROM problem\n" +
-                    "INNER JOIN car ON car_id=pk_car_id\n" +
-                    "INNER JOIN client ON fk_client_id=pk_client_id\n" +
-                    "INNER JOIN work_type ON work_type_id=pk_work_type_id\n" +
-                    "WHERE worker_id=1 AND delivery_date BETWEEN DATE '2019-12-12' AND DATE '2019-12-17'"
-            );
+            Query query4workerProblemsByDate = session.createNativeQuery(
+                    "SELECT car_name, client_name, work_type_name, delivery_date " +
+                    "FROM problem " +
+                    "INNER JOIN car ON car_id=pk_car_id " +
+                    "INNER JOIN client ON fk_client_id=pk_client_id " +
+                    "INNER JOIN work_type ON work_type_id=pk_work_type_id " +
+                    "WHERE worker_id=1 AND delivery_date BETWEEN DATE '2019-12-12' AND DATE '2019-12-17'",
+                    Tuple.class);
             System.out.println("executing: " + query4workerProblemsByDate.getQueryString());
-            for (Object o : query4workerProblemsByDate.list()) {
-                System.out.println("  " + o);
+            List<Tuple> query4workerProblemsByDateResults = query4workerProblemsByDate.getResultList();
+            for (Tuple workTypesTuple : query4workerProblemsByDateResults) {
+                System.out.print("Car name: " + workTypesTuple.get("car_name") + ", ");
+                System.out.print("Client name: " + workTypesTuple.get("client_name") + ", ");
+                System.out.print("Work type: " + workTypesTuple.get("work_type_name") + ", ");
+                System.out.println("Delivery date: " + workTypesTuple.get("delivery_date"));
             }
 
             System.out.println();
             System.out.println("Executing task 5:");
             final Query query5clientCost = session.createSQLQuery(
-                    "SELECT\n" +
-                    "SUM (price) AS total_cost\n" +
-                    "FROM client\n" +
-                    "INNER JOIN car ON pk_client_id=fk_client_id\n" +
-                    "INNER JOIN problem ON pk_car_id=car_id\n" +
-                    "INNER JOIN work_type ON work_type_id=pk_work_type_id\n" +
+                    "SELECT " +
+                    "SUM (price) AS total_cost " +
+                    "FROM client " +
+                    "INNER JOIN car ON pk_client_id=fk_client_id " +
+                    "INNER JOIN problem ON pk_car_id=car_id " +
+                    "INNER JOIN work_type ON work_type_id=pk_work_type_id " +
                     "WHERE pk_client_id=1"
             );
             System.out.println("executing: " + query5clientCost.getQueryString());
             for (Object o : query5clientCost.list()) {
-                System.out.println("  " + o);
+                double totalCost = (double)o;
+                System.out.println("Total cost: " + totalCost);
             }
         } finally {
             session.close();
