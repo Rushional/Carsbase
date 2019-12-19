@@ -5,8 +5,8 @@ import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import query_results.WorkTypesQuery;
 
+import javax.persistence.Tuple;
 import javax.persistence.metamodel.EntityType;
 
 import java.util.List;
@@ -50,16 +50,22 @@ public class Main {
 
             System.out.println();
             System.out.println("Executing task 1:");
-            final Query query1workTypes = session.createSQLQuery("SELECT work_type_name, price FROM work_type").addEntity(WorkTypesQuery.class);
-            System.out.println("executing: " + query1workTypes.getQueryString());
-            List<WorkTypesQuery> workTypesList = query1workTypes.list();
-            //display the data
-            workTypesList.forEach(row->{
-                System.out.println("\t"+row.getWorkTypeName()+"\t"+row.getPrice());
-            });
-//            for (Object o : query1workTypes.list()) {
-//                System.out.println("  " + o);
-//            }
+//            final Query query1workTypes = session.createSQLQuery("SELECT work_type_name, price FROM work_type").addEntity(WorkTypesQuery.class);
+//            System.out.println("executing: " + query1workTypes.getQueryString());
+//            List<WorkTypesQuery> workTypesList = query1workTypes.list();
+//            //display the data
+//            workTypesList.forEach(row->{
+//                System.out.println("\t"+row.getWorkTypeName()+"\t"+row.getPrice());
+//            });
+
+            Query query1workTypes = session.createNativeQuery(
+                    "SELECT work_type_name, price FROM work_type",
+                    Tuple.class);
+            List<Tuple> query1workTypesResults = query1workTypes.getResultList();
+            for (Tuple workTypesTuple : query1workTypesResults) {
+                System.out.print("Work type: " + workTypesTuple.get("work_type_name") + ", ");
+                System.out.println("Price: " + workTypesTuple.get("price"));
+            }
 
             System.out.println();
             System.out.println("Executing task 2:");
