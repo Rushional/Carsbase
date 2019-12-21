@@ -44,13 +44,13 @@ public class Main {
 
             System.out.println();
             System.out.println("Executing task 3:");
-            for (Tuple carWorksTuples : queryManager.carWorks(3)) {
+            for (Tuple carWorksTuples : queryManager.carWorks(6)) {
                 System.out.println("Work type: " + carWorksTuples.get("work_type_name"));
             }
 
             System.out.println();
             System.out.println("Executing task 4:");
-            for (Tuple workerProblemsByDateTuples : queryManager.workerProblemsByDate(new Date(119, Calendar.DECEMBER, 11), new Date(119, Calendar.DECEMBER, 20))) {
+            for (Tuple workerProblemsByDateTuples : queryManager.workerProblemsByDate(new Date(119, Calendar.DECEMBER, 20), new Date(119, Calendar.DECEMBER, 30))) {
                 System.out.print("Car name: " + workerProblemsByDateTuples.get("car_name") + ", ");
                 System.out.print("Client name: " + workerProblemsByDateTuples.get("client_name") + ", ");
                 System.out.print("Work type: " + workerProblemsByDateTuples.get("work_type_name") + ", ");
@@ -59,7 +59,18 @@ public class Main {
 
             System.out.println();
             System.out.println("Executing task 5:");
-            System.out.println("Total cost: " + queryManager.clientCost(1));
+            System.out.println("Total cost: " + queryManager.clientCost(7));
+
+//            WorkEntity workType = new WorkEntity();
+//            workType.setWorkTypeName("car wash");
+//            workType.setPrice(1999.90);
+//
+//            //getting transaction object from session object
+//            session.beginTransaction();
+//
+//            session.save(workType);
+//            System.out.println("Inserted Successfully");
+//            session.getTransaction().commit();
         } finally {
             session.close();
         }

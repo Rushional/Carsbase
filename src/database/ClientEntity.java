@@ -11,6 +11,7 @@ public class ClientEntity {
 
     @Basic
     @Column(name = "client_name", nullable = false, length = 255)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public String getClientName() {
         return clientName;
     }

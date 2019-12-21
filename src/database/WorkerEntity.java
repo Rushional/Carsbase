@@ -11,6 +11,7 @@ public class WorkerEntity {
 
     @Id
     @Column(name = "pk_worker_id", nullable = false)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public Integer getPkWorkerId() {
         return pkWorkerId;
     }

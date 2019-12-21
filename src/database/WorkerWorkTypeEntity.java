@@ -1,9 +1,6 @@
 package database;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -13,6 +10,7 @@ public class WorkerWorkTypeEntity {
 
     @Id
     @Column(name = "worker_work_type_id", nullable = false)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public Integer getWorkerWorkTypeId() {
         return workerWorkTypeId;
     }

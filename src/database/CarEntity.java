@@ -11,6 +11,7 @@ public class CarEntity {
 
     @Id
     @Column(name = "pk_car_id", nullable = false)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public Integer getPkCarId() {
         return pkCarId;
     }

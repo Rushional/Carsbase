@@ -12,6 +12,7 @@ public class WorkTypeEntity {
 
     @Id
     @Column(name = "pk_work_type_id", nullable = false)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public Integer getPkWorkTypeId() {
         return pkWorkTypeId;
     }

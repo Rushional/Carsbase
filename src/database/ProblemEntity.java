@@ -13,6 +13,7 @@ public class ProblemEntity {
 
     @Id
     @Column(name = "pk_problem", nullable = false)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public Integer getPkProblem() {
         return pkProblem;
     }
