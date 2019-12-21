@@ -1,5 +1,7 @@
 package graphics;
 
+import queries.QueryManager;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -8,9 +10,9 @@ public class Frame extends JFrame {
     private ResultsPanel resultsPanel;
     private Container pane;
 
-    public Frame() {
+    public Frame(QueryManager queryManager) {
         super("Работа с базой данных");
-        controlPanel = new ControlPanel();
+        controlPanel = new ControlPanel(queryManager);
         resultsPanel = new ResultsPanel();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pane = this.getContentPane();

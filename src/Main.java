@@ -1,18 +1,18 @@
 import graphics.Frame;
 import graphics.InterfaceInitiator;
-import graphics.ResultsPanel;
 import graphics.TableDisplayer;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import queries.QueryMaker;
 import queries.QueryManager;
+
 import javax.persistence.Tuple;
-import javax.swing.*;
-import java.awt.*;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     private static final SessionFactory ourSessionFactory;
@@ -33,9 +33,11 @@ public class Main {
 
     public static void main(final String[] args) {
         final Session session = getSession();
-        QueryManager queryManager = new QueryManager(session);
-        InterfaceInitiator interfaceInitiator = new InterfaceInitiator();
-        Frame frame = interfaceInitiator.initiateInterface();
+        InterfaceInitiator interfaceInitiator = new InterfaceInitiator(session);
+        QueryMaker queryMaker = interfaceInitiator.getQueryMaker();
+        QueryManager queryManager = interfaceInitiator.getQueryManager();
+        interfaceInitiator.initiateInterface();
+        Frame frame = interfaceInitiator.getFrame();
         TableDisplayer tableDisplayer = new TableDisplayer(frame);
         List<Tuple> workTypesTuple;
         List<Tuple> carsClientsTuple;
@@ -44,19 +46,26 @@ public class Main {
         double totalCost;
         try {
             //task1
-            workTypesTuple = queryManager.workTypes();
+            workTypesTuple = queryMaker.workTypes();
             //task2
-            carsClientsTuple = queryManager.carsClients();
+            carsClientsTuple = queryMaker.carsClients();
             //task3
-            carWorksTuple = queryManager.carWorks(6);
+            carWorksTuple = queryMaker.carWorks(6);
             //task4
-            workerProblemsByDateTuple = queryManager.workerProblemsByDate
+            workerProblemsByDateTuple = queryMaker.workerProblemsByDate
                     (new Date(119, Calendar.DECEMBER, 20), new Date(119, Calendar.DECEMBER, 30));
             //task5
-            totalCost =  queryManager.clientCost(7);
+            totalCost =  queryMaker.clientCost(7);
         } finally {
-            session.close();
+//            session.close();
         }
-        tableDisplayer.displayWorkerProblemsByDate(workerProblemsByDateTuple);
+        tableDisplayer.displayCarsClients(carsClientsTuple);
+        System.out.println("Write integer");
+        Scanner input = new Scanner(System.in);
+        int number = input.nextInt();
+        System.out.println(queryManager.getCarId());
+        tableDisplayer.displayCarWorks(queryManager.carWorks());
+        session.close();
+        //There's a problem where old results panel doesn't get deleted and clicking on the new table brings back an old one somehow
     }
 }

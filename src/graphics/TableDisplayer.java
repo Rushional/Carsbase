@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TableDisplayer {
-    private ResultsPanel resultsPanel;
     private Frame frame;
 
     public TableDisplayer(Frame frame) {

@@ -10,7 +10,7 @@ public class ResultsPanel extends JPanel {
         setPreferredSize(new Dimension(1100, 850));
     }
 
-    public GridBagConstraints getConstraints() {
+    public static GridBagConstraints getConstraints() {
         GridBagConstraints resultsPanelConstraints = new GridBagConstraints();
         resultsPanelConstraints.fill = GridBagConstraints.NONE;
         resultsPanelConstraints.weightx = 0;
