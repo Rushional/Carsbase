@@ -57,6 +57,6 @@ public class Main {
         } finally {
             session.close();
         }
-        tableDisplayer.displayWorkTypes(workTypesTuple);
+        tableDisplayer.displayWorkerProblemsByDate(workerProblemsByDateTuple);
     }
 }
