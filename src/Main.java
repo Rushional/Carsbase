@@ -1,14 +1,19 @@
 import database.WorkTypeEntity;
 import graphics.Frame;
 import graphics.InterfaceInitiator;
+import graphics.ResultsPanel;
+import graphics.TableDisplayer;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import queries.QueryManager;
 import javax.persistence.Tuple;
+import javax.swing.*;
+import java.awt.*;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class Main {
     private static final SessionFactory ourSessionFactory;
@@ -30,40 +35,29 @@ public class Main {
     public static void main(final String[] args) {
         final Session session = getSession();
         QueryManager queryManager = new QueryManager(session);
+        InterfaceInitiator interfaceInitiator = new InterfaceInitiator();
+        Frame frame = interfaceInitiator.initiateInterface();
+        TableDisplayer tableDisplayer = new TableDisplayer(frame);
+        JTable workTypesTable;
+        JTable carsClientsTable;
+        JTable carWorksTable;
+        JTable workerProblemsByDateTable;
+        double totalCost;
         try {
-//            System.out.println();
-//            System.out.println("Executing task 1:");
-//            for (Tuple workTypesTuple : queryManager.workTypes()) {
-//                System.out.print("Work type: " + workTypesTuple.get("work_type_name") + ", ");
-//                System.out.println("Price: " + workTypesTuple.get("price"));
-//            }
-//
-//            System.out.println();
-//            System.out.println("Executing task 2:");
-//            for (Tuple carsClientsTuples : queryManager.carsClients()) {
-//                System.out.print("Car name: " + carsClientsTuples.get("car_name") + ", ");
-//                System.out.println("Client name: " + carsClientsTuples.get("client_name"));
-//            }
-//
-//            System.out.println();
-//            System.out.println("Executing task 3:");
-//            for (Tuple carWorksTuples : queryManager.carWorks(6)) {
-//                System.out.println("Work type: " + carWorksTuples.get("work_type_name"));
-//            }
-//
-//            System.out.println();
-//            System.out.println("Executing task 4:");
-//            for (Tuple workerProblemsByDateTuples : queryManager.workerProblemsByDate(new Date(119, Calendar.DECEMBER, 20), new Date(119, Calendar.DECEMBER, 30))) {
-//                System.out.print("Car name: " + workerProblemsByDateTuples.get("car_name") + ", ");
-//                System.out.print("Client name: " + workerProblemsByDateTuples.get("client_name") + ", ");
-//                System.out.print("Work type: " + workerProblemsByDateTuples.get("work_type_name") + ", ");
-//                System.out.println("Delivery date: " + workerProblemsByDateTuples.get("delivery_date"));
-//            }
-//
-//            System.out.println();
-//            System.out.println("Executing task 5:");
-//            System.out.println("Total cost: " + queryManager.clientCost(7));
-            int foo = 10;
+            //task1
+            List<Tuple> workTypes = queryManager.workTypes();
+            workTypesTable = tableDisplayer.assembleJTableWorkTypes(workTypes);
+            //task2
+            List<Tuple> carsClients = queryManager.carsClients();
+//            carsClientsTable = tableDisplayer.assembleJTableWorkTypes(carsClients);
+            //task3
+            List<Tuple> carWorks = queryManager.carWorks(6);
+//            carWorksTable = tableDisplayer.assembleJTableWorkTypes(carWorks);
+            //task4
+            List<Tuple> workerProblemsByDate = queryManager.workerProblemsByDate(new Date(119, Calendar.DECEMBER, 20), new Date(119, Calendar.DECEMBER, 30));
+//            workerProblemsByDateTable = tableDisplayer.assembleJTableWorkTypes(workerProblemsByDate);
+            //task5
+            totalCost =  queryManager.clientCost(7);
 //            WorkTypeEntity workType = new WorkTypeEntity();
 //            workType.setWorkTypeName("Test work type");
 //            workType.setPrice((double)54);
@@ -77,10 +71,22 @@ public class Main {
 //            workType.setWorkTypeName("Testing update");
 //            System.out.println("Updated Successfully");
 //            session.getTransaction().commit();
-            InterfaceInitiator interfaceInitiator = new InterfaceInitiator();
-            Frame frame = interfaceInitiator.initiateInterface();
         } finally {
             session.close();
         }
+        JScrollPane scrollPane = new JScrollPane(workTypesTable);
+        workTypesTable.setFillsViewportHeight(true);
+        scrollPane.setPreferredSize(new Dimension(500, 200));
+        ResultsPanel resultsPanel = new ResultsPanel();
+        resultsPanel.setLayout(new GridBagLayout());
+        GridBagConstraints scrollPaneConstraints = new GridBagConstraints();
+        scrollPaneConstraints.weightx = 1;
+        scrollPaneConstraints.weighty = 1;
+        scrollPaneConstraints.gridx = 0;
+        scrollPaneConstraints.gridy = 0;
+        resultsPanel.add(scrollPane, scrollPaneConstraints);
+        frame.replaceResultsPanel(resultsPanel);
+        frame.pack();
+        frame.getResultsPanel().repaint();
     }
 }
