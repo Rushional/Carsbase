@@ -1,21 +1,21 @@
 package user_interaction;
 
 import graphics.ResultsDisplayer;
-import queries.QueryManager;
+import queries.QueryMaker;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CarsClientsButtonListener implements ActionListener {
-    private QueryManager queryManager;
+    private QueryMaker queryMaker;
     private ResultsDisplayer resultsDisplayer;
 
-    public CarsClientsButtonListener(QueryManager queryManager, ResultsDisplayer resultsDisplayer) {
-        this.queryManager = queryManager;
+    public CarsClientsButtonListener(QueryMaker queryMaker, ResultsDisplayer resultsDisplayer) {
+        this.queryMaker = queryMaker;
         this.resultsDisplayer = resultsDisplayer;
     }
 
     public void actionPerformed(ActionEvent e) {
-        resultsDisplayer.displayCarsClients(queryManager.carsClients());
+        resultsDisplayer.displayCarsClients(queryMaker.carsClients());
     }
 }

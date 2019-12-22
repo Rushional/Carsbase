@@ -1,23 +1,23 @@
 package user_interaction;
 
 import graphics.ResultsDisplayer;
-import queries.QueryManager;
+import queries.QueryMaker;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class WorkerProblemsByDateComboListener implements ActionListener {
-    private QueryManager queryManager;
+    private QueryMaker queryMaker;
     private ResultsDisplayer resultsDisplayer;
 
-    public WorkerProblemsByDateComboListener(QueryManager queryManager, ResultsDisplayer resultsDisplayer) {
-        this.queryManager = queryManager;
+    public WorkerProblemsByDateComboListener(QueryMaker queryMaker, ResultsDisplayer resultsDisplayer) {
+        this.queryMaker = queryMaker;
         this.resultsDisplayer = resultsDisplayer;
     }
 
     public void actionPerformed(ActionEvent e) {
 //        ClientCostComboBox clientCostComboBox = (ClientCostComboBox)e.getSource();
 //        int clientId = Integer.parseInt((String)clientCostComboBox.getSelectedItem());
-//        resultsDisplayer.displayClientCost(queryManager.clientCost(clientId), clientId);
+//        resultsDisplayer.displayClientCost(queryMaker.clientCost(clientId), clientId);
     }
 }

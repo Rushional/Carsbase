@@ -1,6 +1,6 @@
 package graphics;
 
-import queries.QueryManager;
+import queries.QueryMaker;
 import user_interaction.*;
 
 import javax.swing.*;
@@ -9,7 +9,7 @@ import java.awt.*;
 public class ControlPanel extends JPanel {
 
 
-    public ControlPanel(QueryManager queryManager, ResultsDisplayer resultsDisplayer)
+    public ControlPanel(QueryMaker queryMaker, ResultsDisplayer resultsDisplayer)
     {
         setBackground(new Color(116, 255, 207));
         setPreferredSize(new Dimension(500, 850));
@@ -24,7 +24,7 @@ public class ControlPanel extends JPanel {
         add(workTypesJLabel, workTypesJLabelConstraints);
 
         WorkTypesButton workTypesButton = new WorkTypesButton("Make query");
-        WorkTypesButtonListener workTypesButtonListener = new WorkTypesButtonListener(queryManager, resultsDisplayer);
+        WorkTypesButtonListener workTypesButtonListener = new WorkTypesButtonListener(queryMaker, resultsDisplayer);
         workTypesButton.addActionListener(workTypesButtonListener);
         GridBagConstraints workTypesButtonConstraints = new GridBagConstraints();
         workTypesButtonConstraints.weightx = 1;
@@ -43,7 +43,7 @@ public class ControlPanel extends JPanel {
         add(carsClientsJLabel, carsClientsJLabelConstraints);
 
         CarsClientsButton carsClientsButton = new CarsClientsButton("Make query");
-        CarsClientsButtonListener carsClientsButtonListener = new CarsClientsButtonListener(queryManager, resultsDisplayer);
+        CarsClientsButtonListener carsClientsButtonListener = new CarsClientsButtonListener(queryMaker, resultsDisplayer);
         carsClientsButton.addActionListener(carsClientsButtonListener);
         GridBagConstraints carsClientsButtonConstraints = new GridBagConstraints();
         carsClientsButtonConstraints.weightx = 1;
@@ -64,7 +64,7 @@ public class ControlPanel extends JPanel {
         String[] carIds = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
         CarWorksComboBox carWorksComboBox = new CarWorksComboBox(carIds);
         carWorksComboBox.setSelectedIndex(0);
-        CarWorksComboListener carWorksComboListener = new CarWorksComboListener(queryManager, resultsDisplayer);
+        CarWorksComboListener carWorksComboListener = new CarWorksComboListener(queryMaker, resultsDisplayer);
         carWorksComboBox.addActionListener(carWorksComboListener);
         GridBagConstraints carWorksComboBoxConstraints = new GridBagConstraints();
         carWorksComboBoxConstraints.weightx = 1;
@@ -85,7 +85,7 @@ public class ControlPanel extends JPanel {
         String[] workerIds = { "Past day", "Past week", "Past month", "Past quarter of a year", "Past year"};
         WorkerProblemsByDateComboBox workerProblemsByDateComboBox = new WorkerProblemsByDateComboBox(workerIds);
         workerProblemsByDateComboBox.setSelectedIndex(0);
-        WorkerProblemsByDateComboListener workerProblemsByDateComboListener = new WorkerProblemsByDateComboListener(queryManager, resultsDisplayer);
+        WorkerProblemsByDateComboListener workerProblemsByDateComboListener = new WorkerProblemsByDateComboListener(queryMaker, resultsDisplayer);
         workerProblemsByDateComboBox.addActionListener(workerProblemsByDateComboListener);
         GridBagConstraints workerProblemsByDateComboBoxConstraints = new GridBagConstraints();
         workerProblemsByDateComboBoxConstraints.weightx = 1;
@@ -106,7 +106,7 @@ public class ControlPanel extends JPanel {
         String[] clientIds = { "1", "2", "3", "4", "5", "6", "7" };
         ClientCostComboBox clientCostComboBox = new ClientCostComboBox(clientIds);
         clientCostComboBox.setSelectedIndex(0);
-        ClientCostComboListener clientCostComboListener = new ClientCostComboListener(queryManager, resultsDisplayer);
+        ClientCostComboListener clientCostComboListener = new ClientCostComboListener(queryMaker, resultsDisplayer);
         clientCostComboBox.addActionListener(clientCostComboListener);
         GridBagConstraints clientCostComboBoxConstraints = new GridBagConstraints();
         clientCostComboBoxConstraints.weightx = 1;
