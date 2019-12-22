@@ -1,21 +1,20 @@
 package user_interaction;
 
-import graphics.ResultsDisplayer;
-import queries.QueryMaker;
+import queries.QueryManager;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class WorkerProblemsByDateComboListenerDate implements ActionListener {
-    private QueryMaker queryMaker;
+    private QueryManager queryManager;
 
-    public WorkerProblemsByDateComboListenerDate(QueryMaker queryMaker) {
-        this.queryMaker = queryMaker;
+    public WorkerProblemsByDateComboListenerDate(QueryManager queryManager) {
+        this.queryManager = queryManager;
     }
 
     public void actionPerformed(ActionEvent e) {
         WorkerProblemsByDateComboBoxDate workerProblemsByDateComboBoxDate = (WorkerProblemsByDateComboBoxDate)e.getSource();
         String timePeriod = (String)workerProblemsByDateComboBoxDate.getSelectedItem();
-        queryMaker.setQueryTimePeriod(timePeriod);
+        queryManager.setQueryTimePeriod(timePeriod);
     }
 }

@@ -1,6 +1,6 @@
 package graphics;
 
-import queries.QueryMaker;
+import queries.QueryManager;
 import javax.persistence.Tuple;
 import javax.swing.*;
 import java.awt.*;
@@ -9,11 +9,11 @@ import java.util.List;
 
 public class ResultsDisplayer {
     private Frame frame;
-    private QueryMaker queryMaker;
+    private QueryManager queryManager;
 
-    public void setInterface(Frame frame, QueryMaker queryMaker) {
+    public void setInterface(Frame frame, QueryManager queryManager) {
         this.frame = frame;
-        this.queryMaker = queryMaker;
+        this.queryManager = queryManager;
     }
 
     //TO DO I can fix ResultsPanel blinking if I move "removeAll" from
@@ -21,7 +21,7 @@ public class ResultsDisplayer {
     //Buuuut I'm not going to because - again - time is of the essence
     public void recreateFramePane() {
         frame.getContentPane().removeAll();
-        ControlPanel controlPanel = new ControlPanel(queryMaker, this);
+        ControlPanel controlPanel = new ControlPanel(queryManager, this);
         Container pane = frame.getContentPane();
         pane.setLayout(new GridBagLayout());
         pane.add(controlPanel, controlPanel.getConstraints());

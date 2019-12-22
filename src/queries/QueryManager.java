@@ -11,15 +11,18 @@ import java.util.List;
 //the manager
 //Also probably shouldn't be done - wasting time
 
-public class QueryMaker {
+public class QueryManager {
     private Session session;
 //    private SimpleDateFormat dateFormat;
 //    private static String pattern = "yyyy-MM-dd";
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private String queryTimePeriod = null;
     private int workerId = -1;
+    private List<Tuple> carNames;
+    private List<Tuple> workerNames;
+    private List<Tuple> clientNames;
 
-    public QueryMaker(Session session) {
+    public QueryManager(Session session) {
         this.session = session;
 //        this.dateFormat = new SimpleDateFormat(pattern);
     }
@@ -29,6 +32,16 @@ public class QueryMaker {
         List<Tuple> nativeQueryResults = nativeQuery.getResultList();
         return nativeQueryResults;
     }
+
+    public void createQueryOptions() {
+        carNames = getCarNames();
+        workerNames = getWorkerNames();
+        clientNames = getClientNames();
+    }
+
+    private List<Tuple> getCarNames() { return queryGetTuples("SELECT car_name FROM car"); }
+    private List<Tuple> getWorkerNames() { return queryGetTuples("SELECT worker_name FROM worker"); }
+    private List<Tuple> getClientNames() { return queryGetTuples("SELECT client_name FROM client"); }
 
     //task 1
     public List<Tuple> workTypes() {

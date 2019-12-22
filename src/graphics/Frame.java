@@ -1,6 +1,6 @@
 package graphics;
 
-import queries.QueryMaker;
+import queries.QueryManager;
 import javax.swing.*;
 import java.awt.*;
 
@@ -24,10 +24,10 @@ public class Frame extends JFrame {
     private ResultsPanel resultsPanel;
     private Container pane;
 
-    public Frame(QueryMaker queryMaker, ResultsDisplayer resultsDisplayer) {
+    public Frame(QueryManager queryManager, ResultsDisplayer resultsDisplayer) {
         super("Работа с базой данных");
         this.resultsDisplayer = resultsDisplayer;
-        controlPanel = new ControlPanel(queryMaker, resultsDisplayer);
+        controlPanel = new ControlPanel(queryManager, resultsDisplayer);
         resultsPanel = new ResultsPanel();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);

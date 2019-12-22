@@ -1,6 +1,6 @@
 package graphics;
 
-import queries.QueryMaker;
+import queries.QueryManager;
 import user_interaction.*;
 
 import javax.swing.*;
@@ -9,7 +9,7 @@ import java.awt.*;
 public class ControlPanel extends JPanel {
 
 
-    public ControlPanel(QueryMaker queryMaker, ResultsDisplayer resultsDisplayer)
+    public ControlPanel(QueryManager queryManager, ResultsDisplayer resultsDisplayer)
     {
         setBackground(new Color(116, 255, 207));
         setPreferredSize(new Dimension(500, 600));
@@ -26,7 +26,7 @@ public class ControlPanel extends JPanel {
         add(workTypesJLabel, workTypesJLabelConstraints);
 
         WorkTypesButton workTypesButton = new WorkTypesButton("Make query");
-        WorkTypesButtonListener workTypesButtonListener = new WorkTypesButtonListener(queryMaker, resultsDisplayer);
+        WorkTypesButtonListener workTypesButtonListener = new WorkTypesButtonListener(queryManager, resultsDisplayer);
         workTypesButton.addActionListener(workTypesButtonListener);
         GridBagConstraints workTypesButtonConstraints = new GridBagConstraints();
         workTypesButtonConstraints.weightx = 1;
@@ -49,7 +49,7 @@ public class ControlPanel extends JPanel {
         add(carsClientsJLabel, carsClientsJLabelConstraints);
 
         CarsClientsButton carsClientsButton = new CarsClientsButton("Make query");
-        CarsClientsButtonListener carsClientsButtonListener = new CarsClientsButtonListener(queryMaker, resultsDisplayer);
+        CarsClientsButtonListener carsClientsButtonListener = new CarsClientsButtonListener(queryManager, resultsDisplayer);
         carsClientsButton.addActionListener(carsClientsButtonListener);
         GridBagConstraints carsClientsButtonConstraints = new GridBagConstraints();
         carsClientsButtonConstraints.weightx = 1;
@@ -74,7 +74,7 @@ public class ControlPanel extends JPanel {
         String[] carIds = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
         CarWorksComboBox carWorksComboBox = new CarWorksComboBox(carIds);
         carWorksComboBox.setSelectedIndex(0);
-        CarWorksComboListener carWorksComboListener = new CarWorksComboListener(queryMaker, resultsDisplayer);
+        CarWorksComboListener carWorksComboListener = new CarWorksComboListener(queryManager, resultsDisplayer);
         carWorksComboBox.addActionListener(carWorksComboListener);
         GridBagConstraints carWorksComboBoxConstraints = new GridBagConstraints();
         carWorksComboBoxConstraints.weightx = 1;
@@ -99,7 +99,7 @@ public class ControlPanel extends JPanel {
         String[] timePeriods = { "Past day", "Past week", "Past month", "Past quarter of a year", "Past year" };
         WorkerProblemsByDateComboBoxDate workerProblemsByDateComboBoxDate = new WorkerProblemsByDateComboBoxDate(timePeriods);
         workerProblemsByDateComboBoxDate.setSelectedIndex(0);
-        WorkerProblemsByDateComboListenerDate workerProblemsByDateComboListenerDate = new WorkerProblemsByDateComboListenerDate(queryMaker);
+        WorkerProblemsByDateComboListenerDate workerProblemsByDateComboListenerDate = new WorkerProblemsByDateComboListenerDate(queryManager);
         workerProblemsByDateComboBoxDate.addActionListener(workerProblemsByDateComboListenerDate);
         GridBagConstraints workerProblemsByDateComboBoxConstraintsDate = new GridBagConstraints();
         workerProblemsByDateComboBoxConstraintsDate.weightx = 1;
@@ -111,7 +111,7 @@ public class ControlPanel extends JPanel {
         String[] workerIds = { "1", "2", "3", "4", "5", "6", "7", "8" };
         WorkerProblemsByDateComboBoxWorker workerProblemsByDateComboBoxWorker = new WorkerProblemsByDateComboBoxWorker(workerIds);
         workerProblemsByDateComboBoxWorker.setSelectedIndex(0);
-        WorkerProblemsByDateComboListenerWorker workerProblemsByDateComboListenerWorker = new WorkerProblemsByDateComboListenerWorker(queryMaker);
+        WorkerProblemsByDateComboListenerWorker workerProblemsByDateComboListenerWorker = new WorkerProblemsByDateComboListenerWorker(queryManager);
         workerProblemsByDateComboBoxWorker.addActionListener(workerProblemsByDateComboListenerWorker);
         GridBagConstraints workerProblemsByDateComboBoxConstraintsWorker = new GridBagConstraints();
         workerProblemsByDateComboBoxConstraintsWorker.weightx = 1;
@@ -121,7 +121,7 @@ public class ControlPanel extends JPanel {
         add(workerProblemsByDateComboBoxWorker, workerProblemsByDateComboBoxConstraintsWorker);
 
         WorkerProblemsByDateButton workerProblemsByDateButton = new WorkerProblemsByDateButton("Make query");
-        WorkerProblemsByDateButtonListener workerProblemsByDateButtonListener = new WorkerProblemsByDateButtonListener(queryMaker, resultsDisplayer);
+        WorkerProblemsByDateButtonListener workerProblemsByDateButtonListener = new WorkerProblemsByDateButtonListener(queryManager, resultsDisplayer);
         workerProblemsByDateButton.addActionListener(workerProblemsByDateButtonListener);
         GridBagConstraints workerProblemsByDateButtonConstraints = new GridBagConstraints();
         workerProblemsByDateButtonConstraints.weightx = 1;
@@ -144,7 +144,7 @@ public class ControlPanel extends JPanel {
         String[] clientIds = { "1", "2", "3", "4", "5", "6", "7" };
         ClientCostComboBox clientCostComboBox = new ClientCostComboBox(clientIds);
         clientCostComboBox.setSelectedIndex(0);
-        ClientCostComboListener clientCostComboListener = new ClientCostComboListener(queryMaker, resultsDisplayer);
+        ClientCostComboListener clientCostComboListener = new ClientCostComboListener(queryManager, resultsDisplayer);
         clientCostComboBox.addActionListener(clientCostComboListener);
         GridBagConstraints clientCostComboBoxConstraints = new GridBagConstraints();
         clientCostComboBoxConstraints.weightx = 1;

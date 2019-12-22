@@ -4,11 +4,8 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import queries.QueryMaker;
-import javax.persistence.Tuple;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import queries.QueryManager;
+
 import java.util.Scanner;
 
 public class Main {
@@ -31,11 +28,12 @@ public class Main {
     public static void main(final String[] args) {
         final Session session = getSession();
         InterfaceInitiator interfaceInitiator = new InterfaceInitiator(session);
-        QueryMaker queryMaker = interfaceInitiator.getQueryMaker();
+        QueryManager queryManager = interfaceInitiator.getQueryManager();
         interfaceInitiator.initiateInterface();
+        queryManager.createQueryOptions();
         Frame frame = interfaceInitiator.getFrame();
         ResultsDisplayer resultsDisplayer = new ResultsDisplayer();
-        resultsDisplayer.setInterface(frame, queryMaker);
+        resultsDisplayer.setInterface(frame, queryManager);
 //        System.out.println("Write integer to end session");
         Scanner input = new Scanner(System.in);
         int number = input.nextInt();

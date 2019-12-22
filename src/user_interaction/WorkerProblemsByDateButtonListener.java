@@ -1,23 +1,23 @@
 package user_interaction;
 
 import graphics.ResultsDisplayer;
-import queries.QueryMaker;
+import queries.QueryManager;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class WorkerProblemsByDateButtonListener implements ActionListener {
-    private QueryMaker queryMaker;
+    private QueryManager queryManager;
     private ResultsDisplayer resultsDisplayer;
 
-    public WorkerProblemsByDateButtonListener(QueryMaker queryMaker, ResultsDisplayer resultsDisplayer) {
-        this.queryMaker = queryMaker;
+    public WorkerProblemsByDateButtonListener(QueryManager queryManager, ResultsDisplayer resultsDisplayer) {
+        this.queryManager = queryManager;
         this.resultsDisplayer = resultsDisplayer;
     }
 
     public void actionPerformed(ActionEvent e) {
-        if (queryMaker.getQueryTimePeriod() != null && queryMaker.getWorkerId() != -1) {
-            resultsDisplayer.displayWorkerProblemsByDate(queryMaker.workerProblemsByDate());
+        if (queryManager.getQueryTimePeriod() != null && queryManager.getWorkerId() != -1) {
+            resultsDisplayer.displayWorkerProblemsByDate(queryManager.workerProblemsByDate());
         }
     }
 }

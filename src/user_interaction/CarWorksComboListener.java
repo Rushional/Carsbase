@@ -1,23 +1,23 @@
 package user_interaction;
 
 import graphics.ResultsDisplayer;
-import queries.QueryMaker;
+import queries.QueryManager;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CarWorksComboListener implements ActionListener {
-    private QueryMaker queryMaker;
+    private QueryManager queryManager;
     private ResultsDisplayer resultsDisplayer;
 
-    public CarWorksComboListener(QueryMaker queryMaker, ResultsDisplayer resultsDisplayer) {
-        this.queryMaker = queryMaker;
+    public CarWorksComboListener(QueryManager queryManager, ResultsDisplayer resultsDisplayer) {
+        this.queryManager = queryManager;
         this.resultsDisplayer = resultsDisplayer;
     }
 
     public void actionPerformed(ActionEvent e) {
         CarWorksComboBox carWorksComboBox = (CarWorksComboBox)e.getSource();
         int carId = Integer.parseInt((String)carWorksComboBox.getSelectedItem());
-        resultsDisplayer.displayCarWorks(queryMaker.carWorks(carId));
+        resultsDisplayer.displayCarWorks(queryManager.carWorks(carId));
     }
 }
