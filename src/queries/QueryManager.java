@@ -20,6 +20,14 @@ public class QueryManager {
 
     //TO DO method that is constantly waiting to make a query
     //it will have a hatch or how's it called
+    public List<Tuple> workTypes() {
+        return queryMaker.workTypes();
+    }
+
+    public List<Tuple> carsClients() {
+        return queryMaker.carsClients();
+    }
+
     public List<Tuple> carWorks(int carId) {
         return queryMaker.carWorks(carId);
     }

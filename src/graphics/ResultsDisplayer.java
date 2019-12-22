@@ -1,8 +1,6 @@
 package graphics;
 
 import queries.QueryManager;
-import user_interaction.CarWorksComboBox;
-import user_interaction.WorkTypesComboActionListener;
 
 import javax.persistence.Tuple;
 import javax.swing.*;

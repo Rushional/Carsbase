@@ -6,11 +6,11 @@ import queries.QueryManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ClientCostComboActionListener implements ActionListener {
+public class ClientCostComboListener implements ActionListener {
     private QueryManager queryManager;
     private ResultsDisplayer resultsDisplayer;
 
-    public ClientCostComboActionListener(QueryManager queryManager, ResultsDisplayer resultsDisplayer) {
+    public ClientCostComboListener(QueryManager queryManager, ResultsDisplayer resultsDisplayer) {
         this.queryManager = queryManager;
         this.resultsDisplayer = resultsDisplayer;
     }
