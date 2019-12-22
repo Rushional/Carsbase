@@ -6,9 +6,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import queries.QueryMaker;
 import queries.QueryManager;
-
 import javax.persistence.Tuple;
-import java.awt.*;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -38,8 +36,8 @@ public class Main {
         QueryManager queryManager = interfaceInitiator.getQueryManager();
         interfaceInitiator.initiateInterface();
         Frame frame = interfaceInitiator.getFrame();
-        TableDisplayer tableDisplayer = new TableDisplayer();
-        tableDisplayer.setInterface(frame, queryManager);
+        ResultsDisplayer resultsDisplayer = new ResultsDisplayer();
+        resultsDisplayer.setInterface(frame, queryManager);
         List<Tuple> workTypesTuple;
         List<Tuple> carsClientsTuple;
         List<Tuple> carWorksTuple;
@@ -60,11 +58,10 @@ public class Main {
         } finally {
 //            session.close();
         }
-        tableDisplayer.displayCarsClients(carsClientsTuple);
-        System.out.println("Write integer");
+        resultsDisplayer.displayCarsClients(carsClientsTuple);
+//        System.out.println("Write integer to end session");
         Scanner input = new Scanner(System.in);
         int number = input.nextInt();
         session.close();
-        //There's a problem where old results panel doesn't get deleted and clicking on the new table brings back an old one somehow
     }
 }

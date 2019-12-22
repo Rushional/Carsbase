@@ -23,4 +23,8 @@ public class QueryManager {
     public List<Tuple> carWorks(int carId) {
         return queryMaker.carWorks(carId);
     }
+
+    public double clientCost(int clientId) {
+        return queryMaker.clientCost(clientId);
+    }
 }

@@ -1,6 +1,8 @@
 package graphics;
 
 import queries.QueryManager;
+import user_interaction.CarWorksComboBox;
+import user_interaction.WorkTypesComboActionListener;
 
 import javax.persistence.Tuple;
 import javax.swing.*;
@@ -8,7 +10,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TableDisplayer {
+public class ResultsDisplayer {
     private Frame frame;
     private QueryManager queryManager;
 
@@ -112,5 +114,23 @@ public class TableDisplayer {
         String[] columnNames = {"Car name", "Client name"};
         JTable workerProblemsByDate = new JTable(dataForJTable, columnNames);
         displayJTable(workerProblemsByDate);
+    }
+
+    public void displayClientCost(double clientCost, int clientId) {
+        recreateFramePane();
+        ResultsPanel resultsPanel = new ResultsPanel();
+        frame.replaceResultsPanel(resultsPanel);
+        resultsPanel.setLayout(new GridBagLayout());
+        JLabel clientCostJLabel = new JLabel("Total cost for client " + clientId + " = " + clientCost);
+        clientCostJLabel.setFont(new Font("Verdana", Font.PLAIN,17));
+        GridBagConstraints clientCostJLabelConstraints = new GridBagConstraints();
+        clientCostJLabelConstraints.weightx = 1;
+        clientCostJLabelConstraints.weighty = 1;
+        clientCostJLabelConstraints.gridx = 0;
+        clientCostJLabelConstraints.gridy = 0;
+        resultsPanel.add(clientCostJLabel, clientCostJLabelConstraints);
+        frame.replaceResultsPanel(resultsPanel);
+        frame.pack();
+        frame.getResultsPanel().repaint();
     }
 }

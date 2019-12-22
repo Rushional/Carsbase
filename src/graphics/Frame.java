@@ -6,11 +6,11 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Frame extends JFrame {
-    public TableDisplayer getTableDisplayer() {
-        return tableDisplayer;
+    public ResultsDisplayer getResultsDisplayer() {
+        return resultsDisplayer;
     }
 
-    private TableDisplayer tableDisplayer;
+    private ResultsDisplayer resultsDisplayer;
 
     public void setControlPanel(ControlPanel controlPanel) {
         this.controlPanel = controlPanel;
@@ -25,12 +25,13 @@ public class Frame extends JFrame {
     private ResultsPanel resultsPanel;
     private Container pane;
 
-    public Frame(QueryManager queryManager, TableDisplayer tableDisplayer) {
+    public Frame(QueryManager queryManager, ResultsDisplayer resultsDisplayer) {
         super("Работа с базой данных");
-        this.tableDisplayer = tableDisplayer;
-        controlPanel = new ControlPanel(queryManager, tableDisplayer);
+        this.resultsDisplayer = resultsDisplayer;
+        controlPanel = new ControlPanel(queryManager, resultsDisplayer);
         resultsPanel = new ResultsPanel();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
         this.pane = this.getContentPane();
         pane.setLayout(new GridBagLayout());
         pane.add(controlPanel, controlPanel.getConstraints());

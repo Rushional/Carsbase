@@ -10,21 +10,21 @@ import java.lang.reflect.InvocationTargetException;
 public class InterfaceInitiator {
     private QueryMaker queryMaker; //TO DO delete this! Make Manager create Maker. Also don't do this, because time
     private QueryManager queryManager;
-    private TableDisplayer tableDisplayer;
+    private ResultsDisplayer resultsDisplayer;
     private Frame frame;
 
 
     public InterfaceInitiator(Session session) {
         queryMaker = new QueryMaker(session);
         queryManager = new QueryManager(queryMaker);
-        tableDisplayer = new TableDisplayer();
+        resultsDisplayer = new ResultsDisplayer();
     }
 
     public void initiateInterface() {
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
                 public void run() {
-                    frame = new Frame(queryManager, tableDisplayer);
+                    frame = new Frame(queryManager, resultsDisplayer);
                     frame.pack();
                     frame.setVisible(true);
                 }
@@ -32,7 +32,7 @@ public class InterfaceInitiator {
         } catch (InterruptedException | InvocationTargetException e) {
             e.printStackTrace(System.out);
         }
-        tableDisplayer.setInterface(frame, queryManager);
+        resultsDisplayer.setInterface(frame, queryManager);
     }
 
     public Frame getFrame() {
