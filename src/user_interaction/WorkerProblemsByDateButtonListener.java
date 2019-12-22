@@ -17,7 +17,7 @@ public class WorkerProblemsByDateButtonListener implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (queryManager.getQueryTimePeriod() != null && queryManager.getWorkerId() != -1) {
-            resultsDisplayer.displayWorkerProblemsByDate(queryManager.workerProblemsByDate());
+            resultsDisplayer.displayWorkerProblemsByDate(queryManager.workerProblemsByDate(), queryManager.getWorkerName());
         }
     }
 }

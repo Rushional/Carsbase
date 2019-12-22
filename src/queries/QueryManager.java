@@ -13,11 +13,20 @@ import java.util.List;
 
 public class QueryManager {
     private Session session;
-//    private SimpleDateFormat dateFormat;
-//    private static String pattern = "yyyy-MM-dd";
+    //Stored info for workerProblemsBydate query
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private String queryTimePeriod = null;
     private int workerId = -1;
+
+    public String getWorkerName() {
+        return workerName;
+    }
+
+    public void setWorkerName(String workerName) {
+        this.workerName = workerName;
+    }
+
+    private String workerName;
 
     public List<Tuple> getCarNames() {
         return carNames;

@@ -14,9 +14,9 @@ public class WorkerProblemsByDateComboListenerWorker implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         WorkerProblemsByDateComboBoxWorker workerProblemsByDateComboBoxWorker = (WorkerProblemsByDateComboBoxWorker) e.getSource();
-//        int workerId = Integer.parseInt((String) workerProblemsByDateComboBoxWorker.getSelectedItem());
         int index = workerProblemsByDateComboBoxWorker.getSelectedIndex();
         int workerId = (int)queryManager.getWorkerNames().get(index).get("id");
         queryManager.setWorkerId(workerId);
+        queryManager.setWorkerName((String)workerProblemsByDateComboBoxWorker.getSelectedItem());
     }
 }
