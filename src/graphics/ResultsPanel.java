@@ -7,7 +7,7 @@ public class ResultsPanel extends JPanel {
     public ResultsPanel()
     {
         setBackground(new Color(235, 240, 255));
-        setPreferredSize(new Dimension(1100, 850));
+        setPreferredSize(new Dimension(700, 600));
     }
 
     public static GridBagConstraints getConstraints() {

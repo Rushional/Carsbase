@@ -108,7 +108,7 @@ public class ResultsDisplayer {
         }
         Object[][] dataForJTable = new Object[table.size()][4];
         table.toArray(dataForJTable);
-        String[] columnNames = {"Car name", "Client name"};
+        String[] columnNames = {"Car name", "Client name", "Work type", "Delivery date"};
         JTable workerProblemsByDate = new JTable(dataForJTable, columnNames);
         displayJTable(workerProblemsByDate);
     }

@@ -36,27 +36,6 @@ public class Main {
         Frame frame = interfaceInitiator.getFrame();
         ResultsDisplayer resultsDisplayer = new ResultsDisplayer();
         resultsDisplayer.setInterface(frame, queryMaker);
-        List<Tuple> workTypesTuple;
-        List<Tuple> carsClientsTuple;
-        List<Tuple> carWorksTuple;
-        List<Tuple> workerProblemsByDateTuple;
-        double totalCost;
-        try {
-            //task1
-            workTypesTuple = queryMaker.workTypes();
-            //task2
-            carsClientsTuple = queryMaker.carsClients();
-            //task3
-            carWorksTuple = queryMaker.carWorks(6);
-            //task4
-            workerProblemsByDateTuple = queryMaker.workerProblemsByDate
-                    (new Date(119, Calendar.DECEMBER, 20), new Date(119, Calendar.DECEMBER, 30));
-            //task5
-            totalCost =  queryMaker.clientCost(7);
-        } finally {
-//            session.close();
-        }
-        resultsDisplayer.displayCarsClients(carsClientsTuple);
 //        System.out.println("Write integer to end session");
         Scanner input = new Scanner(System.in);
         int number = input.nextInt();

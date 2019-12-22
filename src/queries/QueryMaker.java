@@ -13,12 +13,15 @@ import java.util.List;
 
 public class QueryMaker {
     private Session session;
-    private SimpleDateFormat dateFormat;
+//    private SimpleDateFormat dateFormat;
+//    private static String pattern = "yyyy-MM-dd";
+    private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private String queryTimePeriod = null;
+    private int workerId = -1;
 
     public QueryMaker(Session session) {
         this.session = session;
-        String pattern = "yyyy-MM-dd";
-        this.dateFormat = new SimpleDateFormat(pattern);
+//        this.dateFormat = new SimpleDateFormat(pattern);
     }
 
     private List<Tuple> queryGetTuples(String sqlQuery) {
@@ -52,17 +55,21 @@ public class QueryMaker {
     }
 
     //task 4
-    public List<Tuple> workerProblemsByDate(Date left, Date right) {
-        String leftDate = dateFormat.format(left);
-        String rightDate = dateFormat.format(right);
-        return queryGetTuples(
-                "SELECT car_name, client_name, work_type_name, delivery_date " +
-                "FROM problem " +
-                "INNER JOIN car ON car_id=pk_car_id " +
-                "INNER JOIN client ON fk_client_id=pk_client_id " +
-                "INNER JOIN work_type ON work_type_id=pk_work_type_id " +
-                "WHERE worker_id=1 AND delivery_date BETWEEN DATE '" + leftDate + "' AND DATE '" + rightDate + "';"
-        );
+    public List<Tuple> workerProblemsByDate() {
+        if (queryTimePeriod != null && workerId != -1) {
+            Date right = new Date(); //today date
+            String rightDate = dateFormat.format(right);
+            String leftDate = computeDate(right);
+            return queryGetTuples(
+                    "SELECT car_name, client_name, work_type_name, delivery_date " +
+                            "FROM problem " +
+                            "INNER JOIN car ON car_id=pk_car_id " +
+                            "INNER JOIN client ON fk_client_id=pk_client_id " +
+                            "INNER JOIN work_type ON work_type_id=pk_work_type_id " +
+                            "WHERE worker_id=" + workerId + " AND delivery_date BETWEEN DATE '" + leftDate + "' AND DATE '" + rightDate + "';"
+            );
+        }
+        else return null;
     }
 
     //task 5
@@ -81,5 +88,41 @@ public class QueryMaker {
             totalCost = (double)o;
         }
         return totalCost;
+    }
+
+    private String computeDate(Date right) {
+        if (right != null) {
+            switch (queryTimePeriod) {
+                case "Past day":
+                    return "2019-12-22";
+                case "Past week":
+                    return "2019-12-16";
+                case "Past month":
+                    return "2019-11-23";
+                case "Past quarter of a year":
+                    return "2019-09-23";
+                case "Past year":
+                    return "2018-12-23";
+                default:
+                    return null;
+            }
+        }
+        else return null;
+    }
+
+    public void setQueryTimePeriod(String queryTimePeriod) {
+        this.queryTimePeriod = queryTimePeriod;
+    }
+
+    public void setWorkerId(int workerId) {
+        this.workerId = workerId;
+    }
+
+    public String getQueryTimePeriod() {
+        return queryTimePeriod;
+    }
+
+    public int getWorkerId() {
+        return workerId;
     }
 }
