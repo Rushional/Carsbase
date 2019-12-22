@@ -17,7 +17,9 @@ public class ClientCostComboListener implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         ClientCostComboBox clientCostComboBox = (ClientCostComboBox)e.getSource();
-        int clientId = Integer.parseInt((String)clientCostComboBox.getSelectedItem());
-        resultsDisplayer.displayClientCost(queryManager.clientCost(clientId), clientId);
+//        int clientId = Integer.parseInt((String)clientCostComboBox.getSelectedItem());
+        int index = clientCostComboBox.getSelectedIndex();
+        int clientId = (int)queryManager.getClientNames().get(index).get("id");
+        resultsDisplayer.displayClientCost(queryManager.clientCost(clientId), (String)clientCostComboBox.getSelectedItem());
     }
 }

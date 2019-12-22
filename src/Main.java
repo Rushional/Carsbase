@@ -29,8 +29,8 @@ public class Main {
         final Session session = getSession();
         InterfaceInitiator interfaceInitiator = new InterfaceInitiator(session);
         QueryManager queryManager = interfaceInitiator.getQueryManager();
-        interfaceInitiator.initiateInterface();
         queryManager.createQueryOptions();
+        interfaceInitiator.initiateInterface();
         Frame frame = interfaceInitiator.getFrame();
         ResultsDisplayer resultsDisplayer = new ResultsDisplayer();
         resultsDisplayer.setInterface(frame, queryManager);

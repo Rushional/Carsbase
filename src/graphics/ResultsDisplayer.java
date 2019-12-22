@@ -113,12 +113,12 @@ public class ResultsDisplayer {
         displayJTable(workerProblemsByDate);
     }
 
-    public void displayClientCost(double clientCost, int clientId) {
+    public void displayClientCost(double clientCost, String clientName) {
         recreateFramePane();
         ResultsPanel resultsPanel = new ResultsPanel();
         frame.replaceResultsPanel(resultsPanel);
         resultsPanel.setLayout(new GridBagLayout());
-        JLabel clientCostJLabel = new JLabel("Total cost for client " + clientId + " = " + clientCost);
+        JLabel clientCostJLabel = new JLabel("Total cost for client " + clientName + " = " + clientCost);
         clientCostJLabel.setFont(new Font("Verdana", Font.PLAIN,17));
         GridBagConstraints clientCostJLabelConstraints = new GridBagConstraints();
         clientCostJLabelConstraints.weightx = 1;

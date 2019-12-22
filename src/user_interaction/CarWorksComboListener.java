@@ -17,7 +17,9 @@ public class CarWorksComboListener implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         CarWorksComboBox carWorksComboBox = (CarWorksComboBox)e.getSource();
-        int carId = Integer.parseInt((String)carWorksComboBox.getSelectedItem());
+//        int carId = Integer.parseInt((String)carWorksComboBox.getSelectedItem());
+        int index = carWorksComboBox.getSelectedIndex();
+        int carId = (int)queryManager.getCarNames().get(index).get("id");
         resultsDisplayer.displayCarWorks(queryManager.carWorks(carId));
     }
 }

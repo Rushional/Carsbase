@@ -3,8 +3,11 @@ package graphics;
 import queries.QueryManager;
 import user_interaction.*;
 
+import javax.persistence.Tuple;
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ControlPanel extends JPanel {
 
@@ -71,8 +74,14 @@ public class ControlPanel extends JPanel {
         carWorksJLabelConstraints.gridwidth = 3;
         add(carWorksJLabel, carWorksJLabelConstraints);
 
-        String[] carIds = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
-        CarWorksComboBox carWorksComboBox = new CarWorksComboBox(carIds);
+        ArrayList<String> carNamesList = new ArrayList<String>();
+        List<Tuple> carNamesTuples = queryManager.getCarNames();
+        for (Tuple tuple : carNamesTuples) {
+            carNamesList.add((String)tuple.get("car_name"));
+        }
+        String[] carNames = new String[carNamesList.size()];
+        carNamesList.toArray(carNames);
+        CarWorksComboBox carWorksComboBox = new CarWorksComboBox(carNames);
         carWorksComboBox.setSelectedIndex(0);
         CarWorksComboListener carWorksComboListener = new CarWorksComboListener(queryManager, resultsDisplayer);
         carWorksComboBox.addActionListener(carWorksComboListener);
@@ -108,8 +117,14 @@ public class ControlPanel extends JPanel {
         workerProblemsByDateComboBoxConstraintsDate.gridy = 7;
         add(workerProblemsByDateComboBoxDate, workerProblemsByDateComboBoxConstraintsDate);
 
-        String[] workerIds = { "1", "2", "3", "4", "5", "6", "7", "8" };
-        WorkerProblemsByDateComboBoxWorker workerProblemsByDateComboBoxWorker = new WorkerProblemsByDateComboBoxWorker(workerIds);
+        ArrayList<String> workerNamesList = new ArrayList<String>();
+        List<Tuple> workerNamesTuples = queryManager.getWorkerNames();
+        for (Tuple tuple : workerNamesTuples) {
+            workerNamesList.add((String)tuple.get("worker_name"));
+        }
+        String[] workerNames = new String[workerNamesList.size()];
+        workerNamesList.toArray(workerNames);
+        WorkerProblemsByDateComboBoxWorker workerProblemsByDateComboBoxWorker = new WorkerProblemsByDateComboBoxWorker(workerNames);
         workerProblemsByDateComboBoxWorker.setSelectedIndex(0);
         WorkerProblemsByDateComboListenerWorker workerProblemsByDateComboListenerWorker = new WorkerProblemsByDateComboListenerWorker(queryManager);
         workerProblemsByDateComboBoxWorker.addActionListener(workerProblemsByDateComboListenerWorker);
@@ -141,8 +156,14 @@ public class ControlPanel extends JPanel {
         clientCostJLabelConstraints.gridwidth = 3;
         add(clientCostJLabel, clientCostJLabelConstraints);
 
-        String[] clientIds = { "1", "2", "3", "4", "5", "6", "7" };
-        ClientCostComboBox clientCostComboBox = new ClientCostComboBox(clientIds);
+        ArrayList<String> clientNamesList = new ArrayList<String>();
+        List<Tuple> clientNamesTuples = queryManager.getClientNames();
+        for (Tuple tuple : clientNamesTuples) {
+            clientNamesList.add((String)tuple.get("client_name"));
+        }
+        String[] clientNames = new String[clientNamesList.size()];
+        clientNamesList.toArray(clientNames);
+        ClientCostComboBox clientCostComboBox = new ClientCostComboBox(clientNames);
         clientCostComboBox.setSelectedIndex(0);
         ClientCostComboListener clientCostComboListener = new ClientCostComboListener(queryManager, resultsDisplayer);
         clientCostComboBox.addActionListener(clientCostComboListener);

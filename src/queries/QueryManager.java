@@ -18,6 +18,19 @@ public class QueryManager {
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private String queryTimePeriod = null;
     private int workerId = -1;
+
+    public List<Tuple> getCarNames() {
+        return carNames;
+    }
+
+    public List<Tuple> getWorkerNames() {
+        return workerNames;
+    }
+
+    public List<Tuple> getClientNames() {
+        return clientNames;
+    }
+
     private List<Tuple> carNames;
     private List<Tuple> workerNames;
     private List<Tuple> clientNames;
@@ -34,14 +47,14 @@ public class QueryManager {
     }
 
     public void createQueryOptions() {
-        carNames = getCarNames();
-        workerNames = getWorkerNames();
-        clientNames = getClientNames();
+        carNames = loadCarNames();
+        workerNames = loadWorkerNames();
+        clientNames = loadClientNames();
     }
 
-    private List<Tuple> getCarNames() { return queryGetTuples("SELECT car_name FROM car"); }
-    private List<Tuple> getWorkerNames() { return queryGetTuples("SELECT worker_name FROM worker"); }
-    private List<Tuple> getClientNames() { return queryGetTuples("SELECT client_name FROM client"); }
+    private List<Tuple> loadCarNames() { return queryGetTuples("SELECT car_name, pk_car_id as id FROM car"); }
+    private List<Tuple> loadWorkerNames() { return queryGetTuples("SELECT worker_name, pk_worker_id as id FROM worker"); }
+    private List<Tuple> loadClientNames() { return queryGetTuples("SELECT client_name, pk_client_id as id FROM client"); }
 
     //task 1
     public List<Tuple> workTypes() {
