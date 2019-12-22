@@ -1,5 +1,7 @@
 package graphics;
 
+import queries.QueryManager;
+
 import javax.persistence.Tuple;
 import javax.swing.*;
 import java.awt.*;
@@ -8,9 +10,23 @@ import java.util.List;
 
 public class TableDisplayer {
     private Frame frame;
+    private QueryManager queryManager;
 
-    public TableDisplayer(Frame frame) {
+    public void setInterface(Frame frame, QueryManager queryManager) {
         this.frame = frame;
+        this.queryManager = queryManager;
+    }
+
+    //TO DO I can fix ResultsPanel blinking if I move "removeAll" from
+    //frame to control panel. If it's possible
+    //Buuuut I'm not going to because - again - time is of the essence
+    public void recreateFramePane() {
+        frame.getContentPane().removeAll();
+        ControlPanel controlPanel = new ControlPanel(queryManager, this);
+        Container pane = frame.getContentPane();
+        pane.setLayout(new GridBagLayout());
+        pane.add(controlPanel, controlPanel.getConstraints());
+        frame.pack();
     }
 
     //wrong place for this and violates SRP but I've got no time to deal with it!
@@ -34,6 +50,7 @@ public class TableDisplayer {
 
     //I know it's better to have 1 displayTable method, but no time to bother thinking about it
     public void displayWorkTypes(List<Tuple> workTypesTuple) {
+        recreateFramePane();
         ArrayList<Object[]> table = new ArrayList<Object[]>();
         for (Tuple tuple : workTypesTuple) {
             Object[] tableRow = new Object[2];
@@ -49,6 +66,7 @@ public class TableDisplayer {
     }
 
     public void displayCarsClients(List<Tuple> carsClientsTuple) {
+        recreateFramePane();
         ArrayList<Object[]> table = new ArrayList<Object[]>();
         for (Tuple tuple : carsClientsTuple) {
             Object[] tableRow = new Object[2];
@@ -64,6 +82,7 @@ public class TableDisplayer {
     }
 
     public void displayCarWorks(List<Tuple> carWorksTuple) {
+        recreateFramePane();
         ArrayList<Object[]> table = new ArrayList<Object[]>();
         for (Tuple tuple : carWorksTuple) {
             Object[] tableRow = new Object[1];
@@ -78,6 +97,7 @@ public class TableDisplayer {
     }
 
     public void displayWorkerProblemsByDate(List<Tuple> workerProblemsByDateTuple) {
+        recreateFramePane();
         ArrayList<Object[]> table = new ArrayList<Object[]>();
         for (Tuple tuple : workerProblemsByDateTuple) {
             Object[] tableRow = new Object[4];

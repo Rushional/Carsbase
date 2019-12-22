@@ -1,6 +1,5 @@
+import graphics.*;
 import graphics.Frame;
-import graphics.InterfaceInitiator;
-import graphics.TableDisplayer;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -9,6 +8,7 @@ import queries.QueryMaker;
 import queries.QueryManager;
 
 import javax.persistence.Tuple;
+import java.awt.*;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -38,7 +38,8 @@ public class Main {
         QueryManager queryManager = interfaceInitiator.getQueryManager();
         interfaceInitiator.initiateInterface();
         Frame frame = interfaceInitiator.getFrame();
-        TableDisplayer tableDisplayer = new TableDisplayer(frame);
+        TableDisplayer tableDisplayer = new TableDisplayer();
+        tableDisplayer.setInterface(frame, queryManager);
         List<Tuple> workTypesTuple;
         List<Tuple> carsClientsTuple;
         List<Tuple> carWorksTuple;
@@ -63,8 +64,6 @@ public class Main {
         System.out.println("Write integer");
         Scanner input = new Scanner(System.in);
         int number = input.nextInt();
-        System.out.println(queryManager.getCarId());
-        tableDisplayer.displayCarWorks(queryManager.carWorks());
         session.close();
         //There's a problem where old results panel doesn't get deleted and clicking on the new table brings back an old one somehow
     }

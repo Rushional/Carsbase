@@ -9,7 +9,7 @@ import java.awt.*;
 public class ControlPanel extends JPanel {
 
 
-    public ControlPanel(QueryManager queryManager)
+    public ControlPanel(QueryManager queryManager, TableDisplayer tableDisplayer)
     {
         setBackground(new Color(116, 255, 207));
         setPreferredSize(new Dimension(500, 850));
@@ -17,7 +17,7 @@ public class ControlPanel extends JPanel {
         String[] carIds = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
         JComboBox petListComboBox = new JComboBox(carIds);
         petListComboBox.setSelectedIndex(0);
-        WorkTypesComboActionListener workTypesComboActionListener = new WorkTypesComboActionListener(queryManager);
+        WorkTypesComboActionListener workTypesComboActionListener = new WorkTypesComboActionListener(queryManager, tableDisplayer);
         petListComboBox.addActionListener(workTypesComboActionListener);
         GridBagConstraints comboBoxConstraints = new GridBagConstraints();
         comboBoxConstraints.weightx = 1;
@@ -29,7 +29,7 @@ public class ControlPanel extends JPanel {
 
     public static GridBagConstraints getConstraints() {
         GridBagConstraints controlPanelConstraints = new GridBagConstraints();
-        controlPanelConstraints.fill = GridBagConstraints.NONE;
+        controlPanelConstraints.fill = GridBagConstraints.BOTH;
         controlPanelConstraints.weightx = 0;
         controlPanelConstraints.weighty = 0;
         controlPanelConstraints.gridx = 0;

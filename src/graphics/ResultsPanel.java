@@ -12,7 +12,7 @@ public class ResultsPanel extends JPanel {
 
     public static GridBagConstraints getConstraints() {
         GridBagConstraints resultsPanelConstraints = new GridBagConstraints();
-        resultsPanelConstraints.fill = GridBagConstraints.NONE;
+        resultsPanelConstraints.fill = GridBagConstraints.BOTH;
         resultsPanelConstraints.weightx = 0;
         resultsPanelConstraints.weighty = 0;
         resultsPanelConstraints.gridx = 1;
